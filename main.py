@@ -1,9 +1,9 @@
 # %% [markdown]
 # # Müzik Duygularının Sınıflandırılması
 # ## Turkish Music Emotion Dataset ile Veri Analizi
-# 
+#
 # Bu projede, UCI Machine Learning Repository'den alınan **Turkish Music Emotion** veri seti kullanılarak müzik parçalarının taşıdığı duygular sınıflandırılmıştır. Veri seti 400 örnek ve 50 farklı akustik özelliği içermektedir. Amaç, müziklerin `happy`, `sad`, `relax`, `angry` gibi etiketlere doğru şekilde atanmasını sağlamaktır.
-# 
+#
 # Bu çalışma kapsamında:
 # - Veriler ön işlenmiştir (ölçekleme, etiketleme),
 # - İki farklı makine öğrenmesi algoritması uygulanmıştır: **KNN** ve **SVM**,
@@ -37,7 +37,7 @@ df.describe()  # İstatistiksel özet
 
 # %% [markdown]
 # ## Veri Ön İşleme
-# 
+#
 # - **LabelEncoder** ile sınıflar sayıya çevrilmiştir.
 # - **StandardScaler** kullanılarak tüm özellikler normalize edilmiştir.
 # - Veriler eğitim (%80) ve test (%20) olmak üzere ikiye ayrılmıştır.
@@ -66,12 +66,12 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 # %% [markdown]
 # ## Kullanılan Modeller
-# 
+#
 # ### 1. KNN (K-En Yakın Komşu)
 # - Parametre: `k = 5`
 # - Basit ve yorumlanabilir bir algoritmadır.
 # - Özellikle küçük veri setlerinde hızlı sonuç verir.
-# 
+#
 # ### 2. SVM (Destek Vektör Makineleri)
 # - `rbf` çekirdeği ile kullanılmıştır.
 # - Sınıflar arası maksimum ayrımı hedefler.
@@ -91,10 +91,10 @@ y_pred_svm = svm.predict(X_test)
 
 # %% [markdown]
 # ## Sayısal Karşılaştırma
-# 
+#
 # - Accuracy (Doğruluk):
-#   - KNN: %62.0 
-#   - SVM: **%81.0** 
+#   - KNN: %62.0
+#   - SVM: **%81.0**
 # - `classification_report` ile Precision, Recall ve F1-Score detayları incelenmiştir.
 
 # %%
@@ -114,12 +114,9 @@ print(classification_report(y_test, y_pred_svm, target_names=class_names))
 
 # %% [markdown]
 # ## Görselleştirme
-# 
+#
 # ### 1. Confusion Matrix (Karışıklık Matrisi)
 # Her modelin tahmin başarısı, gerçek sınıflarla kıyaslanarak görselleştirilmiştir.
-# 
-# ### 2. t-SNE ile Scatter Plot
-# Yüksek boyutlu veri, 2 boyuta indirgenerek sınıfların birbirinden ayrımı görselleştirilmiştir.
 
 # %%
 # Confusion Matrix – KNN
@@ -154,6 +151,11 @@ plt.ylabel("Gerçek Sınıf")
 plt.tight_layout()
 plt.show()
 
+# %% [markdown]
+# ### 2. t-SNE ile Scatter Plot
+# Yüksek boyutlu veri, 2 boyuta indirgenerek sınıfların birbirinden ayrımı görselleştirilmiştir.
+
+# %%
 # t-SNE ile görselleştirme
 tsne = TSNE(n_components=2, random_state=42)
 X_tsne = tsne.fit_transform(X_scaled)
@@ -174,9 +176,7 @@ plt.show()
 
 # %% [markdown]
 # ## Sonuç
-# 
+#
 # - **SVM modeli**, `relax` ve `happy` sınıflarında yüksek başarı göstermiştir.
 # - **KNN modeli**, özellikle `sad` sınıfında zayıf kalmıştır.
 # - Genel olarak, **SVM modeli bu veri setinde daha etkili sonuçlar vermektedir.**
-
-
